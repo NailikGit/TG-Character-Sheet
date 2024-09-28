@@ -56,7 +56,18 @@ const Character = struct {
         return Character; // TODO: do some json magic or smthn
     }
     fn print(self: Self) !void {
-        try out.print("{s}\n", .{self.name});
+        try out.print("name: {s} ", .{self.name});
+        try out.print("species: {s} ", .{self.species});
+        if (!std.mem.eql(u8, self.pst, "")) {
+            try out.print("PST: {s}", .{self.pst});
+        }
+        try out.print("\n", .{});
+        try out.print("body: {} ", .{self.body});
+        try out.print("wit: {} ", .{self.wit});
+        try out.print("mind: {} ", .{self.mind});
+        try out.print("endurance: {}\n", .{self.endurance});
+        try out.print("hp: {}/{} ", .{ self.hp, self.max_hp });
+        try out.print("movement: [max: {} efficient: {}]\n", .{ self.max_mvmt, self.eff_mvmt });
         try in.streamUntilDelimiter(writer, '\n', buf_size);
         const end: usize = getEnd();
         try out.print("{s}\n", .{input[0..end]});
